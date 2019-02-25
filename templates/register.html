@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<br>
+<center>
+<div class="card text-left" style="width: 35rem;">
+  <div class="card-body">
+       <div class="form-group">
+      <form action = "{{url_for('addrec')}}" method = "POST">
+         <h3>Register as Donor</h3>
+         <label for="name">Name</label>
+         <input type = "text" name = "nm" class="form-control" required/>
+
+          <label for="addr">Address</label>
+         <textarea name = "add" class="form-control" required></textarea>
+
+          <label for="city">City</label>
+         <input type = "text" name = "city" class="form-control" required/>
+
+          <label for="pin">postal code</label>
+         <input type = "text" name = "pin" class="form-control" required/>
+
+         <label for="Bloodgroup">Blood Group</label>
+         <select name="bg"  class="form-control" id="exampleFormControlSelect1">
+           <option value="O+" selected>O+</option>
+           <option value="O-">O-</option>
+           <option value="A+">A+</option>
+           <option value="A-">A-</option>
+           <option value="B+">B+</option>
+           <option value="B-">B-</option>
+           <option value="AB+">AB+</option>
+           <option value="AB-">AB-</option>
+         </select>
+
+         <label for="exampleInputEmail1">Email address</label>
+         <input type = "text" name ="email" class="form-control" required/>
+
+         <label for="exampleInputPassword1">Password</label>
+         <input type = "password" name ="pass" class="form-control" required/>
+         <br>
+         <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      </div>
+      </div>
+      </center>
+      {% with messages = get_flashed_messages() %}
+      {%if messages%}
+          {%for mess in messages%}
+            {{mess}}
+          {%endfor%}
+      {%endif%}
+      {% endwith %}
+
+
+{% endblock %}

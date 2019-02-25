@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+        <center>
+        <div class="card text-left mt-3" style="width: 35rem;">
+          <div class="card-body">
+
+        <form class="form-group" action = "{{url_for('index')}}" method = "POST">
+          <label for="sel"> Search by:</label>
+          <select name="type" class="form-control" id="exampleFormControlSelect1" required>
+            <option value="blood">blood group</option>
+            <option value="donorname">donorname</option>
+          </select><br>
+         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" required><br>
+         <center><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></center>
+    </form>
+      </div>
+    </div>
+  </center>
+</div>
+    <div class="container-fluid mb-2 mt-2">
+        {% if search!=NULL %}
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">  Search results:
+      </li>
+        </ol>
+      </nav>
+
+
+
+          <center>
+           {% for s in search %}
+           <div class="card text-left" style="width: 70rem;">
+             <div class="card-header"> {{s["name"]}} </div>
+             <div class="card-body ml-3">
+             <h5 class="card-title ml-3">  {{s['email']}} </h5>
+             <h6 class="card-subtitle mb-2  ml-3 text-muted"> Blood Group: {{s['bg']}}</h6>
+              <p class="card-text ml-3"> Address:
+                 {{s["addr"]}}
+                  {{ s["city"]}}
+                 {{s['pin']}}
+                 <br>
+
+
+                 {% if session['username'] == s['email']%}
+
+                 <span class="d-inline-block" data-toggle="popover" data-content="Disabled popover">
+     <button class="btn btn-primary mt-2 content-justify-end" style="pointer-events: none;" type="button" disabled>contact for blood</button>
+   </span>
+
+                 {% elif session['logged_in'] == True %}
+
+                 <button type="button" class="btn btn-primary mt-1 content-justify-end" data-toggle="modal" data-target="#exampleModalCenter">
+    contact for blood
+  </button>
+               </p>
+
+
+             {% endif %}</div>
+             <br>
+              {% endfor %}
+
+        {% endif %}
+
+</div>
+</center>
+</div>
+        <div class="container-fluid">
+  <!-- Content here -->
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Registered donores:
+</li>
+  </ol>
+</nav>
+
+
+
+
+
+         <center>
+           {% for row in rows %}
+           <div class="card text-left" style="width: 70rem;">
+             <div class="card-header">
+    {{row["name"]}}
+  </div>
+            <div class="card-body ml-3">
+            <h5 class="card-title ml-3"> {{row['email']}}</h5>
+            <h6 class="card-subtitle mb-2  ml-3 text-muted"> Blood Group: {{row['bg']}}</h6>
+             <p class="card-text ml-3"> Address:
+               {{row["addr"]}}
+               {{ row["city"]}}
+               {{row['pin']}}
+               <br>
+               {% if session['username'] == row['email']%}
+
+               <span class="d-inline-block" data-toggle="popover" data-content="Disabled popover">
+   <button class="btn btn-primary mt-2" style="pointer-events: none;" type="button" disabled>contact for blood</button>
+ </span>
+
+               {% elif session['logged_in'] == True %}
+               <button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#exampleModalCenter">
+  contact for blood
+</button>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">contact for blood</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{url_for('contactforblood',emailid=row['email'])}}">
+          <label for="name">Name</label>
+          <input type ="text" name = "nm" class="form-control" required/>
+        <label for="addr"> confirm your Address</label>
+       <textarea name ="add" class="form-control" required></textarea>
+       <button type="button" class="btn btn-secondary mt-1" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary mt-1">send request</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+               {% endif %}
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <br>
+           {% endfor %}</center>
+      </div>
+
+        {% with messages = get_flashed_messages() %}
+        {%if messages%}
+            {%for mess in messages%}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    {{mess}}
+</div>
+
+            {%endfor%}
+        {%endif%}
+        {% endwith %}
+
+
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{%for row in rows%}
+<center>
+<div class="card text-left mt-5" style="width: 35rem;">
+  <div class="card-body">
+      <form action = "{{url_for('myprofile',email=session['username'])}}" method = "POST">
+        <div class="form-group">
+         <h3>Donor Information</h3>
+
+
+         <label for="name">name</label>
+         <input type = "text"  class="form-control" name = "name" value="{{row['name']}}" required/><br>
+
+
+
+         <label for="name">address</label>
+         <input type = "text" name = "addr"  class="form-control" value="{{row['addr']}}" required/><br>
+
+         <label for="name">city</label>
+         <input type = "text" name ="city" class="form-control" value="{{row['city']}}" required/><br>
+
+         <label for="name">pin</label>
+         <input type = "text" name ="pin" class="form-control" value="{{row['pin']}}" required/><br>
+
+         <label for="name">blood group</label>
+         <input type = "text" name ="bg" class="form-control" value="{{row['bg']}}" required/><br>
+         <label for="exampleInputEmail1">Email address</label>
+        <input type = "email" name ="email" class="form-control" value="{{row['email']}}" required/><br>
+         <input type = "submit" value = "submit" class="btn btn-primary" /><br>
+       </div>
+      </form>
+      </div>
+      </div>
+      </center>
+
+
+
+<center>
+  <nav aria-label="breadcrumb  ">
+    <ol class="breadcrumb mt-3 justify-content-center">
+      <li class="breadcrumb-item active" aria-current="page">or</li>
+    </ol>
+  </nav>
+
+ <div class="card text-white bg-dark mb-3 mt-5" style="max-width: 18rem;">
+  <div class="card-header">Delete My account !!</div>
+  <div class="card-body">
+    <h5 class="card-title">Warning</h5>
+    <p class="card-text">this will delete your account permanently</p>
+      <a  class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">delete my account</a>
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content text-dark ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Delete your account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        are you sure you want to delete your account
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a  class="btn btn-danger" href = "{{url_for('deleteme',useremail=row['email'])}}">delete my account</a>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+</center>
+
+{%endfor%}
+
+ {% with messages = get_flashed_messages() %}
+ {%if messages%}
+     {%for mess in messages%}
+       {{mess}}
+     {%endfor%}
+ {%endif%}
+ {% endwith %}
+
+ {% endblock %}

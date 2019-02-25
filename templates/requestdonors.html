@@ -1,0 +1,216 @@
+<!doctype html>
+{% extends "base.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{%if messages%}
+    {%for mess in messages%}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+<strong>{{mess}}</strong>
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
+
+    {%endfor%}
+{%endif%}
+{% endwith %}
+
+     {% if session['logged_in'] == True %}
+
+     {%else%}
+
+     {%endif%}
+
+
+    <br>
+
+    <div class="card border-danger text-center">
+      <div class="card-header">Total Blood in Blood bank</div>
+      <div class="card-body text-danger">
+        <h5 class="card-title"><span class='numscroller' data-min='1' data-max='{{totalblood}}' data-delay='5' data-increment='10'>{{totalblood}}</span> pints</h5>
+      </div>
+    </div>
+
+<br>
+
+
+
+        <div class="container">
+  <div class="row">
+    <div class="col"><div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+      <div class="card-header">A positive</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.apos}}' data-delay='5' data-increment='10'>{{bloodtypestotal.apos}}</span> pints</h5>
+
+    </div>
+  </div></div>
+    <div class="col"><div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-header">A negative</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class="count"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.aneg}}' data-delay='5' data-increment='10'>{{bloodtypestotal.aneg}}</span></span> pints</h5>
+
+    </div>
+    </div></div>
+    <div class="col"><div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+      <div class="card-header">B positive</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.bpos}}' data-delay='5' data-increment='10'>{{bloodtypestotal.bpos}}</span> pints</h5>
+
+    </div>
+    </div></div>
+    <div class="col"><div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+      <div class="card-header">B negative</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.bneg}}' data-delay='5' data-increment='10'>{{bloodtypestotal.bneg}}</span> pints</h5>
+      <p class="card-text"></p>
+    </div>
+    </div></div>
+
+    <div class="w-100"></div>
+
+    <div class="col"><div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+      <div class="card-header">AB positive</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.abpos}}' data-delay='5' data-increment='10'>{{bloodtypestotal.abpos}}</span> pints</h5>
+
+    </div>
+    </div></div>
+    <div class="col"><div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+      <div class="card-header">AB negative</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class="count"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.abneg}}' data-delay='5' data-increment='10'>{{bloodtypestotal.abneg}}</span></span> pints</h5>
+
+    </div>
+    </div></div>
+    <div class="col"><div class="card bg-light mb-3" style="max-width: 18rem;">
+      <div class="card-header">O positive</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class="count"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.opos}}' data-delay='5' data-increment='10'>{{bloodtypestotal.opos}}</span> pints</h5>
+
+    </div>
+    </div></div>
+    <div class="col"><div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+      <div class="card-header">O negtive</div>
+    <div class="card-body">
+      <h5 class="card-title"><span class="count"><span class='numscroller' data-min='1' data-max='{{bloodtypestotal.oneg}}' data-delay='5' data-increment='10'>{{bloodtypestotal.oneg}}</span> pints</h5>
+
+    </div>
+    </div></div>
+  </div>
+</div>
+
+
+
+<div class="alert alert-primary" role="alert">
+  <h4>blood donatations and their details</h4>
+</div>
+
+
+         {% for row in rows %}
+           <div class="card">
+             <h5 class="card-header">{{row["donorname"]}}</h5>
+             <div class="card-body">
+               <h5 class="card-title">{{row["type"]}}</h5>
+               <p class="card-text">{{ row["donoremail"]}}
+               {{row['donorsex']}}
+               {{row['qty']}} pints
+               {{row['dweight']}}kg's
+               {{row['phone']}}</p>
+               <div class="row">
+    <div class="col">
+      <form action="{{url_for('editdonor',id=row['id'])}}" method="GET">
+      <input type="submit" class="btn btn-primary" name="button" value="edit"/>
+      </form>
+    </div>
+    <div class="col">
+      <form action="{{url_for('deletebloodentry',id=row['id'])}}" method="GET">
+      <input type="submit" name="button" class="btn btn-danger" value="delete entry"/>
+      </form>
+    </div>
+  </div>
+
+
+             </div>
+           </div>
+
+
+
+
+
+
+         {% endfor %}
+<br>
+         <nav aria-label="breadcrumb">
+           <ol class="breadcrumb">
+             <li class="breadcrumb-item active" aria-current="page">  Registered donores:</li>
+           </ol>
+         </nav>
+<br>
+
+
+
+        <table class="table">
+          <thead>
+    <tr>
+      <th scope="col">name</th>
+      <th scope="col">address</th>
+      <th scope="col">city</th>
+      <th scope="col">pin</th>
+      <th scope="col">blood group</th>
+      <th scope="col">email</th>
+      <th scope="col">contact them</th>
+      <th scope="col">delete</th>
+    </tr>
+
+  </thead>
+
+           {% for r in users %}
+              <tr>
+                 <td>{{r["name"]}}</td>
+                 <td>{{r["addr"]}}</td>
+                 <td> {{ r["city"]}}</td>
+                 <td>{{r['pin']}}</td>
+                 <td>{{r['bg']}}</td>
+                 <td>{{r['email']}}</td>
+                 <td><button type="button" class="btn btn-primary mt-1" data-toggle="modal" data-target="#exampleModalCenter">
+    contact for blood
+  </button>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">contact for blood</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{{url_for('contactforblood',emailid=r['email'])}}">
+            <label for="name">Name</label>
+            <input type = "text" name = "nm" value="admin@bloodbank.com" class="form-control" required/>
+          <label for="addr"> confirm your Address</label>
+         <input type="text" name="add" class="form-control" value="admin's address" required></textarea>
+         <button type="button" class="btn btn-secondary mt-1" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary mt-1">send request</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</td>
+                 <td><a href = "{{url_for('deleteuser',useremail=r['email'])}}" class="btn btn-danger">delete user</a></td>
+              </tr>
+           {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+           {% endblock %}

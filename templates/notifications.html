@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+{% if rows is defined %}
+{% for row in rows %}
+         <div class="card text-left border-secondary mb-3 mt-2 mx-auto" style="width: 70rem;">
+
+           <div class="card-header border-secondary">from {{row['formemail']}} </div>
+
+          <div class="card-body text-success ml-3">
+
+
+
+
+                    <h5 class="card-title ml-3">{{row['toname']}} sent you a blood request
+                  his address is </h5>
+                    <p class="card-text ml-3">
+
+
+                          {{row['toaddr']}}
+
+                        </p>
+                        <div class="d-flex justify-content-end">
+                      <a class="btn btn-outline-secondary" href = "{{url_for('deletenoti',id=row['id'])}}">delete notification</a>
+                        </div>
+                        </div>
+
+                        </div>
+
+{% endfor %}
+{% else %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">No Notifications</h1>
+    <p class="lead">sorry you have ho new notifications</p>
+  </div>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         {% with messages = get_flashed_messages() %}
+         {%if messages%}
+             {%for mess in messages%}
+             <div class="alert alert-success alert-dismissible fade show" role="alert">
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+     {{mess}}
+ </div>
+             {%endfor%}
+         {%endif%}
+         {% endwith %}
+
+{% endblock %}

@@ -1,0 +1,133 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Blood Bank</title>
+        {% else %}
+        <title>Welcome to Blood Bank</title>
+        {% endif %}
+        <link rel="shortcut icon" href="{{url_for('static', filename='d.ico')}}"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{url_for('static', filename='numscroller-1.0.js')}}"></script>
+<style>div.someclass {
+background-size: cover;
+}
+}</style>
+
+    </head>
+    <body>
+
+
+
+      {% if session['admin'] == True %}
+
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b71c1c;">
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <a class="navbar-brand" href="/">Blood Bank</a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/bloodbank">add blood</a>
+      </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('logout')}}">logout</a>
+        </li>
+        </ul>
+    </div>
+
+  </nav>
+
+      {% elif session['logged_in'] == True %}
+
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b71c1c;">
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <a class="navbar-brand" href="/">Blood Bank</a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('myprofile',email=session['username'])}}">myprofile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('notifications')}}">notifications</a>
+      </li>
+      </ul>
+
+
+      <ul class="navbar-nav ml-auto">
+
+    <li class="nav-item">
+      <a class="nav-link" href="#"> Hi, {{ session['username']}}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{url_for('logout')}}">logout</a>
+    </li>
+    </ul>
+
+  </div>
+
+</nav>
+
+
+      {%else%}
+
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #b71c1c;">
+
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <a class="navbar-brand" href="/">Blood Bank</a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('add')}}">register</a>
+      </li>
+
+    </ul>
+  </div>
+
+</nav>
+
+
+
+    {%endif%}
+
+
+
+
+
+          {% block content %}
+
+           {% endblock %}
+
+      </body>
+</html>

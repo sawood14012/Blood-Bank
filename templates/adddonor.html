@@ -1,0 +1,78 @@
+<!doctype html>
+{% extends "base.html" %}
+{% block content %}
+<center>
+
+  {% with messages = get_flashed_messages() %}
+  {%if messages%}
+      {%for mess in messages%}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{mess}}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+      {%endfor%}
+  {%endif%}
+  {% endwith %}
+
+<div class="card text-left mt-5" style="width: 35rem;">
+  <div class="card-body">
+      <form action = "{{url_for('addb')}}" method = "POST">
+         <h3>Donor Information</h3>
+         BLOOD Group<br>
+
+         <select name="blood_group" class="form-control">
+            <option value="O+" selected>O+</option>
+           <option value="O-">O-</option>
+           <option value="A+">A+</option>
+           <option value="A-">A-</option>
+           <option value="B+">B+</option>
+           <option value="B-">B-</option>
+           <option value="AB+">AB+</option>
+           <option value="AB-">AB-</option>
+         </select>
+
+         <label for="name">Name</label>
+         <input type = "text" name = "donorname" class="form-control" required/><br>
+
+         <label for="gender">gender</label>
+         <div class="form-check">
+  <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male" checked>
+  <label class="form-check-label" for="exampleRadios1">
+    Male
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="female">
+  <label class="form-check-label" for="exampleRadios2">
+    Female
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="other">
+  <label class="form-check-label" for="exampleRadios2">
+    Other
+  </label>
+</div>
+
+<label for="qty">qty</label>
+
+         <input type = "text" name = "qty" class="form-control"  required/><br>
+<label for="dweight">donor weight</label>
+
+         <input type = "text" name ="dweight" class="form-control"  required/><br>
+
+  <label for="email">Email</label>
+         <input type = "text" name ="email" class="form-control"  required/><br>
+
+      <label for="phone">Phone</label>
+         <input type = "text" name ="phone" class="form-control"  required/><br>
+         <input type = "submit" value = "submit" class="btn btn-primary" /><br>
+
+      </form>
+    </div>
+  </div>
+</center>
+     {% endblock %}
