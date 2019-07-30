@@ -1,4 +1,4 @@
-Flask==0.12.3
+Flask==1.1.1
 Flask-Bootstrap==3.3.5.7
 Flask-Compress==1.4.0
 Flask-DebugToolbar==0.10.1
