@@ -1,6 +1,6 @@
 from flask import render_template
 import sqlite3
-import requests
+# import requests
 from flask import Flask
 from flask import request,redirect,url_for,session,flash
 from flask_wtf import Form
