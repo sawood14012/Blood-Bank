@@ -130,4 +130,13 @@ background-size: cover;
            {% endblock %}
 
       </body>
+
+
+<script type="text/javascript">
+    function send_notification_clicked(email)
+    {
+    var element = document.getElementById("contactform");
+    element.setAttribute("action",  '/contactforblood/'+email);
+    }
+    </script>
 </html>
